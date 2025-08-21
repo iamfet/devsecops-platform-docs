@@ -1,138 +1,82 @@
 # End-to-End DevSecOps Platform
 
-**Complete enterprise-grade DevSecOps ecosystem** demonstrating security-first development practices with automated infrastructure provisioning, comprehensive security scanning, and GitOps-driven deployment on Amazon EKS.
+**Automated DevSecOps ecosystem** with complete pipeline from code commit to production deployment on Amazon EKS.
 
-## 🎯 Overview
+## 🎯 What This Is
 
-This platform integrates **three specialized repositories** to create a complete DevSecOps pipeline that embeds security at every stage of the software delivery lifecycle:
-
-### **🔄 Integration Flow**
-```
-🏗️ Infrastructure → 📱 Application Development → 🔄 GitOps Deployment → 🛡️ Security Monitoring
-```
-
-**Core Philosophy**: Security-by-design with automated enforcement, continuous monitoring, and zero-trust architecture across all components.
-
-### **🎯 Key Benefits**
-- **Security-First**: Multi-layer security with automated scanning and policy enforcement
-- **Full Automation**: End-to-end pipeline from code commit to production deployment
-- **Enterprise-Ready**: Production-grade infrastructure with monitoring and compliance
-- **GitOps-Driven**: Declarative, auditable deployments with automated rollbacks
-
-## 🏗️ Platform Architecture
-
-### **Three-Repository Integration Model**
+Three integrated repositories demonstrating complete automated DevSecOps pipeline:
 
 ```
-                    🔄 DevSecOps Platform Integration
-    ┌───────────────────────────────────────────────────────────────────┐
-    │                                                                   │
-    ▼                           ▼                           ▼         │
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    │
-│ 🏗️ Infrastructure│    │ 📱 Application  │    │ 🔄 GitOps       │    │
-│                 │    │                 │    │                 │    │
-│ • EKS Cluster   │◀───│ • 11 Services   │───▶│ • Kustomize     │    │
-│ • Vault/Secrets │    │ • Security Scans│    │ • ArgoCD Apps   │    │
-│ • Istio Mesh    │    │ • CI/CD Pipeline│    │ • OPA Policies  │    │
-│ • Monitoring    │    │ • DefectDojo    │    │ • Configurations│    │
-│ • ArgoCD        │    │ • Multi-Language│    │ • Deployments   │    │
-└─────────────────┘    └─────────────────┘    └─────────────────┘    │
-         │                       │                       │           │
-         └───────────────────────┼───────────────────────┘           │
-                                 │                                   │
-                    🛡️ DefectDojo Security Hub ◀────────────────────┘
+🏗️ Infrastructure → 📱 Applications → 🔄 GitOps → 🛡️ Security
 ```
 
-### **Integration Points**
-- **🔗 Repository Dispatch**: Automated triggers between Application → GitOps
-- **🔒 Shared Security**: Common policies, secrets, and monitoring across all repos
-- **📊 Unified Observability**: Centralized metrics, logs, and vulnerability tracking
-- **⚖️ Policy Enforcement**: Infrastructure-defined constraints enforced at runtime
+**Why It Matters**: End-to-end automation - security embedded, zero-trust architecture, production-ready.
 
-## 📁 Repository Breakdown
-
-### **🏗️ Infrastructure Foundation**
-**Repository**: [sec-eks-infra-automation](./sec-eks-infra-automation/)
-
-**Role**: Provisions secure, production-ready AWS EKS infrastructure
-
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| **EKS Cluster** | Terraform + AWS EKS | Managed Kubernetes with RBAC |
-| **Security Layer** | Vault + OPA + Istio | Secrets, policies, service mesh |
-| **Monitoring Stack** | Prometheus + Grafana | Metrics and visualization |
-| **GitOps Engine** | ArgoCD | Continuous deployment |
-| **AWS Services** | Pod Identity + KMS + ALB | Native AWS integration |
-
-**Key Features**: Zero-trust networking, automated certificate management, policy-as-code enforcement
-
----
-
-### **📱 Application Development**
-**Repository**: [sec-online-boutique-appliation](./sec-online-boutique-appliation/)
-
-**Role**: Multi-language microservices with embedded security scanning
-
-| Service Type | Languages | Security Tools |
-|--------------|-----------|----------------|
-| **Frontend** | Go | SonarQube, golangci-lint |
-| **Backend Services** | Go, Java, Python, Node.js, C# | Gitleaks, Snyk, Trivy |
-| **Data Layer** | Redis | Container scanning |
-| **CI/CD Pipeline** | GitHub Actions | DefectDojo integration |
-
-**Security Features**: SAST, dependency scanning, secrets detection, container hardening
-
----
-
-### **🔄 GitOps Deployment**
-**Repository**: [sec-gitops-online-boutique](./sec-gitops-online-boutique/)
-
-**Role**: Declarative deployments with policy enforcement
-
-| Component | Technology | Function |
-|-----------|------------|----------|
-| **Base Manifests** | Kustomize | Service definitions |
-| **Environment Overlays** | Kustomize | Dev/staging/prod configs |
-| **Security Policies** | OPA Gatekeeper | Runtime constraints |
-| **Networking** | Istio VirtualServices | Traffic management |
-| **Monitoring** | ServiceMonitors | Observability configs |
-
-**Key Features**: Automated image updates, policy validation, audit trails
-
-### **Cross-Repository Technology Stack**
-
-| Layer | Infrastructure Repo | Application Repo | GitOps Repo |
-|-------|-------------------|------------------|-------------|
-| **🏗️ Infrastructure** | Terraform, AWS EKS, VPC | - | Kustomize, YAML |
-| **🔒 Security** | Vault, OPA, Istio, KMS | SonarQube, Gitleaks, Snyk, Trivy | OPA Policies, DefectDojo |
-| **📊 Monitoring** | Prometheus, Grafana, Jaeger | - | ServiceMonitors, Dashboards |
-| **🚀 Deployment** | ArgoCD, Helm Charts | Docker, Multi-stage builds | ArgoCD Apps, Kustomize |
-| **🔄 Automation** | GitHub Actions, Terraform | GitHub Actions, Repository Dispatch | GitHub Actions, Auto-sync |
-
-## 🔄 End-to-End Workflow
-
-### **Complete Integration Pipeline**
+## 🏗️ Architecture Overview
 
 ```
-┌─ 🏗️ INFRASTRUCTURE ─┐    ┌─ 📱 APPLICATION ─┐    ┌─ 🔄 GITOPS ─┐    ┌─ 🛡️ SECURITY ─┐
-│                      │    │                  │    │             │    │               │
-│ 1. Terraform Apply  │───▶│ 4. Code Commit   │───▶│ 7. Manifest │───▶│ 10. Policy    │
-│ 2. EKS Cluster      │    │ 5. Security Scan │    │    Update   │    │     Validation│
-│ 3. ArgoCD Bootstrap │    │ 6. Image Build   │    │ 8. ArgoCD   │    │ 11. DefectDojo│
-│                      │    │                  │    │    Sync     │    │     Reporting │
-└──────────────────────┘    └──────────────────┘    └─────────────┘    └───────────────┘
-         │                           │                       │                    │
-         └───────────────────────────┼───────────────────────┼────────────────────┘
-                                     │                       │
-                            Repository Dispatch      Continuous Monitoring
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│🏗️ Infrastructure│───▶│ 📱 Application  │───▶│ 🔄 GitOps       │
+│ EKS + Security  │    │ Build + Scan    │    │ Deploy + Sync   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                        🛡️ DefectDojo Security Hub
 ```
 
-### **Deployment Phases**
+**How They Connect**: Repository dispatch triggers, automated sync, integrated pipeline.
+
+## 📁 The Three Repositories
+
+### **1. 🏗️ Infrastructure Repository** 
+**[sec-eks-infra-automation](./sec-eks-infra-automation/)**
+
+**Purpose**: Provisions and manages the entire AWS EKS infrastructure using Terraform
+
+**Key Components**:
+- **EKS Cluster**: Managed Kubernetes with fine-grained RBAC
+- **Security Stack**: Vault, OPA Gatekeeper, Istio service mesh
+- **Monitoring**: Prometheus, Grafana with custom dashboards
+- **GitOps Engine**: ArgoCD for continuous deployment
+- **AWS Integration**: Pod Identity, Load Balancer Controller, cert-manager
+
+**Technologies**: Terraform, Helm, AWS EKS, AWS KMS, AWS Secrets Manager, HashiCorp Vault, Istio, OPA Gatekeeper, ArgoCD, Prometheus, Grafana, cert-manager, External Secrets Operator, GitHub Actions
+
+### **2. 📱 Application Repository**
+**[sec-online-boutique-appliation](./sec-online-boutique-appliation/)**
+
+**Purpose**: Contains microservices source code with comprehensive security scanning
+
+**Key Components**:
+- **11 Microservices**: Go, Java, Python, Node.js, C# applications
+- **Security Scanning**: SonarQube, Gitleaks, Snyk, Trivy integration
+- **Container Security**: Multi-stage builds, distroless images
+- **CI/CD Pipeline**: Automated testing, building, and security validation
+- **DefectDojo Integration**: Vulnerability management and reporting
+
+**Technologies**: Go, Java, Python, Node.js, C#, Docker, GitHub Actions, SonarQube, Gitleaks, Snyk, Trivy, DefectDojo, Multi-stage builds, Distroless images
+
+### **3. 🔄 GitOps Repository**
+**[sec-gitops-online-boutique](./sec-gitops-online-boutique/)**
+
+**Purpose**: Manages Kubernetes deployments and configurations using GitOps principles
+
+**Key Components**:
+- **Kustomize Manifests**: Base configurations and environment overlays
+- **Security Policies**: OPA Gatekeeper constraint templates
+- **Cluster Resources**: Monitoring, networking, and security configurations
+- **ArgoCD Applications**: Automated deployment definitions
+- **DefectDojo Deployment**: Vulnerability management platform
+
+**Technologies**: Kustomize, ArgoCD, Kubernetes, YAML, OPA Gatekeeper, Istio VirtualServices, Prometheus ServiceMonitors, Grafana Dashboards, External Secrets, DefectDojo Helm Charts
+
+## 🔄 Automated Workflow
 
 #### **Phase 1: Infrastructure Setup** 🏗️
 ```bash
-# Deploy secure EKS foundation
-terraform apply
+# GitHub Actions triggered on PR of .tf file
+PR → GitHub Actions → terraform apply
 # Result: EKS + Vault + Istio + ArgoCD + Monitoring
 ```
 
@@ -150,292 +94,85 @@ Manifest Update → ArgoCD Sync → Policy Validation → Live Deployment
 # Result: Compliant, monitored applications
 ```
 
-### **Integration Triggers**
+## 🔒 Security Features
 
-| Trigger | Source | Target | Action |
-|---------|--------|--------|---------|
-| **Infrastructure Ready** | Terraform | ArgoCD | Deploy GitOps applications |
-| **Code Commit** | Application | CI/CD | Run security scans |
-| **Image Built** | Application | GitOps | Update deployment manifests |
-| **Manifest Changed** | GitOps | ArgoCD | Sync to cluster |
-| **Policy Violation** | OPA | DefectDojo | Security alert |
+**Multi-Layer Defense**:
+- **Code**: SAST, secrets detection, dependency scanning
+- **Infrastructure**: Pod Identity, KMS, VPC isolation, RBAC
+- **Runtime**: OPA policies, Istio mTLS, network policies
+- **Monitoring**: DefectDojo vulnerability management hub
 
-## 🔒 Security Integration
+**Zero-Trust**: No hardcoded secrets, mTLS everywhere, automated policy enforcement.
 
-### **Multi-Layer Security Model**
+## 🚀 Quick Start
 
-```
-🛡️ DEFENSE IN DEPTH ACROSS REPOSITORIES
+**Prerequisites**: AWS account, Terraform ≥1.5, kubectl, AWS CLI
 
-┌─ CODE SECURITY ─┐  ┌─ INFRASTRUCTURE ─┐  ┌─ RUNTIME SECURITY ─┐
-│ • SAST Scanning │  │ • Pod Identity    │  │ • OPA Policies     │
-│ • Secrets Detection│ │ • KMS Encryption │  │ • Istio mTLS      │
-│ • Dependency Scan│  │ • VPC Isolation   │  │ • Network Policies │
-│ • Container Scan │  │ • RBAC Controls   │  │ • Admission Control│
-└─────────────────┘  └─────────────────┘  └──────────────────┘
-        │                     │                      │
-        └─────────────────────┼──────────────────────┘
-                              │
-                    🎯 DefectDojo Security Hub
-                   (Centralized Vulnerability Management)
-```
+**Deploy Order**:
+1. **Infrastructure** → GitHub Actions triggered → Bootstraps entire platform (see [infrastructure repo](./sec-eks-infra-automation/))
+2. **GitOps** → Deployed by infrastructure (see [gitops repo](./sec-gitops-online-boutique/))
+3. **Applications** → Triggered on code push (see [application repo](./sec-online-boutique-appliation/))
 
-### **Security Automation Flow**
+**Access**: Port-forward ArgoCD (8080), Grafana (3000), DefectDojo (8000)
 
-| Stage | Repository | Security Controls | Integration |
-|-------|------------|-------------------|-------------|
-| **Development** | Application | SonarQube, Gitleaks, Snyk | → DefectDojo |
-| **Build** | Application | Trivy, Multi-stage builds | → Secure images |
-| **Deploy** | GitOps | OPA validation, Istio policies | ← Infrastructure policies |
-| **Runtime** | Infrastructure | Monitoring, audit logs | → Centralized logging |
+## 🛡️ Security Hub
 
-### **Zero-Trust Implementation**
+**DefectDojo** aggregates all security findings:
+- Infrastructure scans → Terraform, AWS config
+- Application scans → SAST, secrets, dependencies, containers  
+- Runtime issues → Policy violations, deployment risks
 
-- **🔐 No Hardcoded Secrets**: Vault + External Secrets across all repos
-- **🌐 mTLS Everywhere**: Istio service mesh for all communications  
-- **⚖️ Policy Enforcement**: OPA Gatekeeper validates every deployment
-- **🔍 Continuous Scanning**: Automated vulnerability detection and reporting
-- **📊 Unified Monitoring**: End-to-end observability and security metrics
+**Result**: Unified dashboard with risk prioritization, trend analysis, compliance reporting.
 
-## 🚀 Quick Start Guide
+## 📊 Monitoring
 
-### **Prerequisites Checklist**
-- ✅ AWS Account with EKS permissions
-- ✅ GitHub repositories forked/cloned  
-- ✅ Tools: Terraform ≥1.5, kubectl, AWS CLI
-- ✅ Optional: Route53 domain for SSL certificates
+**Full Stack Observability**:
+- **Infrastructure**: Prometheus + Grafana (cluster, nodes, pods)
+- **Applications**: ServiceMonitors (performance, health, SLIs)
+- **Security**: DefectDojo + Istio (vulnerabilities, mTLS)
+- **Network**: Jaeger (distributed tracing)
 
-### **Step-by-Step Deployment**
+**Dashboards**: Platform overview, security posture, performance, deployments.
 
-#### **Step 1: Infrastructure Foundation** 🏗️
-```bash
-# Clone and configure infrastructure
-git clone <infrastructure-repo>
-cd sec-eks-infra-automation
+## 🔐 Compliance
 
-# Configure variables
-cp terraform.tfvars.example terraform.tfvars
-# Edit: user_for_admin_role, user_for_dev_role
+**Defense-in-Depth**: Edge protection, network security, policy enforcement, secrets management, identity control, code security, container security, audit trails.
 
-# Deploy infrastructure
-terraform init
-terraform apply
-```
+**Compliance Cycle**: Infrastructure defines → GitOps enforces → Applications comply → DefectDojo reports.
 
-#### **Step 2: Verify GitOps Setup** 🔄
-```bash
-# Configure kubectl
-aws eks update-kubeconfig --region us-east-1 --name <cluster-name>
+## 🔧 Customization
 
-# Check ArgoCD applications
-kubectl get applications -n argocd
-kubectl get pods -n argocd
-```
+**Adding Services**: 
+1. Application repo → Add code + CI/CD
+2. GitOps repo → Create manifests + policies
+3. Infrastructure repo → Update monitoring
+4. Integration → Repository dispatch connects all
 
-#### **Step 3: Access Platform Services** 🌐
-```bash
-# ArgoCD UI (GitOps dashboard)
-kubectl port-forward svc/argocd-server -n argocd 8080:443
-# → https://localhost:8080
+**Environments**: Dev (direct sync), Staging (manual promotion), Production (approval-based)
 
-# Grafana (Monitoring dashboard)  
-kubectl port-forward svc/kube-prometheus-stack-grafana -n monitoring 3000:80
-# → http://localhost:3000
+**Policies**: Infrastructure defines → GitOps enforces → Applications comply → DefectDojo monitors
 
-# DefectDojo (Security dashboard)
-kubectl port-forward svc/defectdojo -n defectdojo 8000:80
-# → http://localhost:8000
-```
+## 📚 Next Steps
 
-### **Verification Commands**
-```bash
-# Platform health check
-kubectl get nodes
-kubectl get pods --all-namespaces | grep -E "argocd|monitoring|vault|istio"
+**Explore Each Repository**:
+- 🏗️ **[Infrastructure](./sec-eks-infra-automation/)** → Complete setup guide, Terraform configs
+- 📱 **[Application](./sec-online-boutique-appliation/)** → Microservices code, security scanning
+- 🔄 **[GitOps](./sec-gitops-online-boutique/)** → Deployment manifests, policies
 
-# Security validation
-kubectl get constrainttemplates
-kubectl get certificates --all-namespaces
-```
-
-## 🛡️ DefectDojo Security Hub
-
-### **Centralized Vulnerability Management**
-
-DefectDojo aggregates security findings from all three repositories into a unified security dashboard:
-
-```
-📊 SECURITY FINDINGS AGGREGATION
-
-🏗️ Infrastructure     📱 Application      🔄 GitOps
-├─ Terraform scans   ├─ SAST (SonarQube) ├─ Policy violations
-├─ AWS config        ├─ Secrets (Gitleaks)├─ Deployment risks  
-└─ Network policies  ├─ Dependencies (Snyk)└─ Runtime issues
-                     └─ Containers (Trivy)
-                              │
-                              ▼
-                    🎯 DefectDojo Dashboard
-                   ┌─────────────────────────┐
-                   │ • Risk Prioritization   │
-                   │ • Trend Analysis        │
-                   │ • Compliance Reporting  │
-                   │ • Remediation Tracking  │
-                   └─────────────────────────┘
-```
-
-### **Security Metrics & Reporting**
-- **📈 Vulnerability Trends**: Track security posture over time
-- **🎯 Risk Prioritization**: CVSS scoring and business impact assessment  
-- **📋 Compliance Reports**: Automated compliance framework mapping
-- **🔄 Remediation Tracking**: Monitor fix progress across all repositories
-- **⚡ Real-time Alerts**: Immediate notification of critical vulnerabilities
-
-## 📊 Observability & Monitoring
-
-### **Full-Stack Monitoring**
-
-| Layer | Tool | Metrics Collected |
-|-------|------|-------------------|
-| **🏗️ Infrastructure** | Prometheus + Grafana | EKS cluster, nodes, pods, AWS resources |
-| **📱 Applications** | ServiceMonitors | Microservice performance, health, SLIs |
-| **🔄 GitOps** | ArgoCD Metrics | Deployment status, sync health, drift detection |
-| **🛡️ Security** | DefectDojo + Istio | Vulnerability trends, policy violations, mTLS |
-| **🌐 Network** | Istio + Jaeger | Service mesh traffic, distributed tracing |
-
-### **Pre-configured Dashboards**
-- **🎛️ Platform Overview**: Cross-repository health and status
-- **🔒 Security Posture**: Vulnerability metrics and policy compliance
-- **⚡ Performance**: Application SLIs, response times, error rates
-- **🚀 Deployment**: GitOps sync status, rollout progress
-- **🌐 Service Mesh**: Traffic flow, mTLS status, service dependencies
-
-## 🔐 Security Architecture
-
-### **Defense-in-Depth Strategy**
-
-| Security Domain | Implementation | Cross-Repo Integration |
-|-----------------|----------------|------------------------|
-| **🌐 Edge Protection** | Route53 + cert-manager + Let's Encrypt | Automated SSL/TLS across all services |
-| **🛡️ Network Security** | Istio service mesh + mTLS | Zero-trust communication |
-| **⚖️ Policy Enforcement** | OPA Gatekeeper + constraints | Runtime validation of all deployments |
-| **🔐 Secrets Management** | Vault + External Secrets + KMS | No hardcoded credentials anywhere |
-| **👤 Identity & Access** | Pod Identity + RBAC + AWS IAM | Fine-grained permissions |
-| **🔍 Code Security** | SAST + secrets detection + linting | Shift-left security practices |
-| **📦 Container Security** | Image scanning + distroless builds | Secure container lifecycle |
-| **📋 Audit & Compliance** | Git history + K8s logs + scan results | Complete audit trail |
-
-### **Compliance Framework**
-
-```
-🔄 CONTINUOUS COMPLIANCE CYCLE
-
- Infrastructure Defines → GitOps Enforces → Applications Comply
-        │                       │                    │
-        ▼                       ▼                    ▼
-   Policy Templates      Runtime Validation    Security Scans
-   Security Baselines    Admission Control     Vulnerability Mgmt
-   RBAC Definitions      Network Policies      Audit Logging
-        │                       │                    │
-        └───────────────────────┼────────────────────┘
-                                │
-                        📊 DefectDojo Reports
-                       (Compliance Dashboard)
-```
-
-## 🔧 Platform Customization
-
-### **Adding New Services**
-
-#### **4-Step Integration Process**
-
-```
-1️⃣ APPLICATION REPO          2️⃣ GITOPS REPO
-├─ Add service code          ├─ Create Kustomize manifests
-├─ Create Dockerfile         ├─ Define networking rules
-├─ Setup CI/CD workflow      ├─ Configure monitoring
-└─ Enable security scans     └─ Set security policies
-         │                            │
-         ▼                            ▼
-3️⃣ INFRASTRUCTURE REPO       4️⃣ INTEGRATION
-├─ Update monitoring         ├─ Repository dispatch
-├─ Add security policies     ├─ Automated deployments
-└─ Extend observability      └─ End-to-end pipeline
-```
-
-### **Multi-Environment Strategy**
-
-| Environment | Characteristics | Deployment Pattern |
-|-------------|----------------|--------------------|
-| **🧪 Development** | Single AZ, minimal resources | Direct GitOps sync |
-| **🔬 Staging** | Production-like, full security | Manual promotion |
-| **🚀 Production** | HA, auto-scaling, strict policies | Approval-based deployment |
-
-### **Policy Management**
-
-#### **Centralized Policy Framework**
-
-```
-🏗️ INFRASTRUCTURE → Defines base policies
-           │
-           ▼
-🔄 GITOPS → Implements & enforces policies  
-           │
-           ▼
-📱 APPLICATION → Complies with policies
-           │
-           ▼
-🛡️ DEFECTDOJO → Monitors policy violations
-```
-
-| Policy Category | Scope | Enforcement Point |
-|-----------------|-------|-------------------|
-| **🔒 Security Constraints** | All deployments | OPA Gatekeeper |
-| **🌐 Network Policies** | Service-to-service | Istio + NetworkPolicy |
-| **👤 Access Control** | Cluster operations | EKS RBAC |
-| **🔍 Scanning Requirements** | Build pipeline | CI/CD workflows |
-
-## 📚 Repository Documentation
-
-### **Detailed Guides**
-- **🏗️ [Infrastructure Setup](./sec-eks-infra-automation/README.md)** - Complete EKS deployment guide
-- **📱 [Application Development](./sec-online-boutique-appliation/README.md)** - Microservices and security scanning
-- **🔄 [GitOps Configuration](./sec-gitops-online-boutique/README.md)** - Deployment and policy management
-
-### **Best Practices & Standards**
-- **[AWS EKS Best Practices](https://aws.github.io/aws-eks-best-practices/)** - Official AWS recommendations
-- **[CNCF Security Whitepaper](https://github.com/cncf/sig-security/blob/master/security-whitepaper/CNCF_cloud-native-security-whitepaper-Nov2020.pdf)** - Cloud-native security
-- **[GitOps Principles](https://opengitops.dev/)** - GitOps methodology
-- **[DevSecOps Best Practices](https://www.devsecops.org/)** - Security integration patterns
-
-## 🤝 Contributing
-
-### **Repository-Specific Guidelines**
-| Repository | Focus Area | Contribution Type |
-|------------|------------|-------------------|
-| **🏗️ Infrastructure** | Terraform modules, AWS resources | Infrastructure improvements |
-| **📱 Application** | Microservices, security scanning | Feature development, security enhancements |
-| **🔄 GitOps** | Kubernetes manifests, policies | Deployment configurations, policy updates |
-
-### **Cross-Repository Changes**
-For changes affecting multiple repositories:
-1. Create issues in all affected repositories
-2. Coordinate changes through pull requests
-3. Test integration thoroughly
-4. Update documentation across all repos
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see individual repository LICENSE files for details.
+**Learn More**:
+- [AWS EKS Best Practices](https://aws.github.io/aws-eks-best-practices/)
+- [GitOps Principles](https://opengitops.dev/)
+- [DevSecOps Best Practices](https://www.devsecops.org/)
 
 ---
 
-## 🎯 Project Impact
+## 🎯 Why This Matters
 
-**🌟 This platform demonstrates enterprise-grade DevSecOps practices with:**
-- ✅ **Security-by-Design** - Multi-layer security embedded throughout
-- ✅ **Full Automation** - End-to-end pipeline from code to production  
-- ✅ **Zero-Trust Architecture** - No implicit trust, verify everything
-- ✅ **Compliance-Ready** - Audit trails and policy enforcement
-- ✅ **Production-Grade** - Scalable, monitored, and maintainable
+✅ **Security-by-Design** - Multi-layer security embedded throughout  
+✅ **End-to-End Automation** - Complete pipeline from code to production  
+✅ **Zero-Trust** - No implicit trust, verify everything  
+✅ **Production-Ready** - Scalable, monitored, maintainable
 
-**Built with ❤️ for DevSecOps education and enterprise adoption**
+**Built for DevSecOps education and enterprise adoption**
+
+📄 **License**: MIT - see individual repository LICENSE files
